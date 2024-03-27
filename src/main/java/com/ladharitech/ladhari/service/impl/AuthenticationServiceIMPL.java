@@ -159,7 +159,7 @@ public class AuthenticationServiceIMPL implements AuthenticationService {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
             mailMessage.setTo(user.getEmail());
             mailMessage.setSubject("Complete Registration!");
-            mailMessage.setFrom("benchikhladhariachraf@gmail.com");
+            mailMessage.setFrom("***************************");
             mailMessage.setText("To confirm your account, please click here : "
                 +"http://localhost:3000/api/v1/auth/confirm-account?token="+confirmationToken.getConfirmationToken());
             emailService.sendEmail(mailMessage);
