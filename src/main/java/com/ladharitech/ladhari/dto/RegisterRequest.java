@@ -4,7 +4,8 @@ import lombok.*;
 
 @Data
 @Builder
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class RegisterRequest {
 
     private String firstname;
