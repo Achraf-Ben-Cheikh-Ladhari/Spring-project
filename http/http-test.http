@@ -1,0 +1,43 @@
+
+POST http://localhost:3000/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "firstname":"achraf",
+  "lastname":"ladhari",
+  "email":"achrafladhari@gmail.com",
+  "password":"ladhari02"
+}
+
+> {% client.global.set("auth-token",response.body.token); %}
+
+### Query The User endpoint
+GET http://localhost:3000/api/v1/user
+Authorization: Bearer {{auth-token}}
+
+### Change the password
+
+PATCH http://localhost:3000/api/v1/user
+Content-Type: application/json
+Authorization: Bearer {{auth-token}}
+
+{
+  "currentPassword": "ladhari02",
+  "newPassword": "Polyte2022",
+  "reNewPassword": "Polyte2022"
+}
+
+### Login again and update the token
+POST http://localhost:3000/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email":  "achrafladhari@gmail.com",
+  "password": "Polyte2022"
+}
+
+> {% client.global.set("new-auth-token", response.body.token);  %}
+
+### Query the Demo endpoint after password change
+GET http://localhost:3000/api/v1/user
+Authorization: Bearer {{new-auth-token}}
