@@ -4,16 +4,28 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     stages {
-        stage('Build') {
+        stage("Compile") {
             steps {
-                sh './mvnw clean install'
+                sh "mvn clean compile"
             }
         }
+        
+        stage("Test Cases") {
+            steps {
+                sh "mvn test"
+            }
+        }
+
         stage('Scan') {
             steps {
                 withSonarQubeEnv(installationName: 'sonar') {
-                    sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar -Dsonar.exclusions=**/*.java'
+                    sh 'mvn clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
                 }
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean install'
             }
         }
     }
