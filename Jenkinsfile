@@ -1,5 +1,14 @@
 pipeline {
     agent  any 
+    tools {
+        jdk 'jdk'
+        maven 'maven'
+    }
+    
+    environment {
+        SCANNER_HOME = tool 'sonar-qube'
+    }
+    
     options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
